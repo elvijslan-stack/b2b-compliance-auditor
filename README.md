@@ -278,6 +278,4 @@ Architected by **Elvijs Landmans ([landmansIT](https://github.com/elvijslan-stac
 ## ⚖️ Legal & Financial Disclaimer
 
 > **CRITICAL NOTICE:** This platform is an automated decision-support research aggregator designed for corporate finance and legal analysts. **It does NOT offer financial, investment, accounting, or legal advice.** All synthesized investment memos, risk matrices, and calculated financial ratios must be independently reviewed and verified by qualified professionals prior to capital allocation or contractual commitment.
-```
 
-*(Optionaler Tipp: Wenn du den Screenshot deines Dashboards als Datei `docs/dashboard.png` in dein Repo hochlädst, erscheint er automatisch perfekt im Header-Bereich!)*
