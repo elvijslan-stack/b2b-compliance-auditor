@@ -1,18 +1,22 @@
-# 📊 Autonomous Due Diligence Analyst — LangGraph & pgvector
-
 <div align="center">
 
-### Autonomous Multi-Agent Financial & Legal Due Diligence Engine
+# ⚖️ B2B Compliance Auditor — Oracle 23ai & LangGraph
+### Autonomous Multi-Agent Contract Auditing & Legal Risk Remediation Engine
 
-[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.111+-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![LangGraph](https://img.shields.io/badge/Orchestration-LangGraph%200.2+-FF6F00?style=flat-square&logoColor=white)](https://github.com/langchain-ai/langgraph)
-[![Vector DB](https://img.shields.io/badge/Vector%20DB-PostgreSQL%20%2B%20pgvector-336791?style=flat-square&logo=postgresql&logoColor=white)](https://github.com/pgvector/pgvector)
-[![Pub/Sub](https://img.shields.io/badge/Pub%2FSub-Redis%20Cluster%20SSE-DC382D?style=flat-square&logo=redis&logoColor=white)](#-stateless-distributed-architecture)
-[![Sandbox](https://img.shields.io/badge/Sandbox-gVisor%20%2F%20MicroVM%20Isolation-2496ED?style=flat-square&logo=docker&logoColor=white)](#-deterministic-financial-engine--sandbox)
-[![Compliance](https://img.shields.io/badge/Jurisdictions-BaFin%20%7C%20EUR--Lex%20%7C%20EU--Sanctions-003399?style=flat-square)](https://eur-lex.europa.eu/)
+[![Python Version](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python&logoColor=white)](https://python.org)
+[![Reflex](https://img.shields.io/badge/Full--Stack-Reflex_0.9-6E56CF?logo=python&logoColor=white)](https://reflex.dev/)
+[![LangGraph](https://img.shields.io/badge/Orchestration-LangGraph-FF6F00?logo=langchain&logoColor=white)](https://langchain-ai.github.io/langgraph/)
+[![Oracle Database 23ai](https://img.shields.io/badge/Vector_DB-Oracle_23ai_AI_Vector_Search-F80000?logo=oracle&logoColor=white)](https://www.oracle.com/database/23ai/)
+[![Local & Cloud LLMs](https://img.shields.io/badge/Inference-Qwen2.5--Coder_%7C_GPT--4o--mini-black?logo=ollama&logoColor=white)](https://ollama.ai)
+[![Compliance Scope](https://img.shields.io/badge/Regulations-GDPR_%7C_EU_AI_Act_%7C_BGB-0052CC)](#)
 
-[Executive Summary](#-executive-summary) • [System Architecture](#-end-to-end-system-architecture) • [Agent Topology](#-agent-topology--cognitive-state-machine) • [Financial Sandbox](#-deterministic-financial-engine--sandbox) • [Distributed Scaling](#-stateless-distributed-architecture) • [Engineering & Systems Architecture](#-engineering--systems-architecture)
+<p align="center">
+  <a href="#-executive-summary">Executive Summary</a> •
+  <a href="#-end-to-end-system-architecture">System Architecture</a> •
+  <a href="#-the-3-tier-langgraph-agent-topology">Agent Topology</a> •
+  <a href="#-oracle-23ai-ai-vector-search-engine">Oracle 23ai Subsystem</a> •
+  <a href="#-remediation--alternative-clause-synthesis">Remediation Engine</a>
+</p>
 
 </div>
 
@@ -20,262 +24,248 @@
 
 ## 📌 Executive Summary
 
-Manual Due Diligence (DD) across commercial filings (10-K, HGB/IFRS annual reports), market intelligence, and regulatory enforcement databases is plagued by fragmented evidence, cognitive confirmation bias, and high-liability calculation errors. Traditional "naive RAG" systems exacerbate these risks by hallucinating accounting figures and failing to reconcile discrepancies between corporate narratives and external market realities.
+Manual legal review of commercial agreements (SLA contracts, NDAs, Master Service Agreements, SaaS terms) represents an acute operational bottleneck for enterprise legal and procurement departments. In-house counsels routinely face massive document backlogs, escalating legal liabilities, and tightening compliance mandates under the **EU AI Act**, **GDPR (DSGVO)**, and national civil codes (e.g., **§§ 305 ff. BGB**).
 
-The **Autonomous Due Diligence Analyst** is an enterprise-grade multi-agent research platform engineered by **[landmansIT](https://github.com/elvijslan-stack)**. Built on **LangGraph**, **pgvector**, an **isolated gVisor/MicroVM code execution sandbox**, and **Redis Pub/Sub event streaming**, it ingests corporate reports, detects emerging operational and regulatory signals, autonomously rewrites queries for external news verification, and cross-checks competing claims.
+The **B2B Compliance Auditor** is an autonomous, multi-agent contract audit platform built on a pure-Python stack using **Reflex** and **LangGraph**. It ingests raw legal documents (PDF/DOCX), segments them into contextual clauses, and executes paragraph-level compliance validation against a local statutory knowledge base hosted on **Oracle Database 23ai AI Vector Search**.
 
-Beyond passive summarization, the system functions as a **Deterministic Audit & Decision Engine**:
-- **Zero-Hallucination Math:** LLMs are strictly forbidden from performing arithmetic. Metrics (YoY Growth, EBITDA Multiples, DSO, FCF) are evaluated through verified AST-checked formulas or executed inside an air-gapped container with zero network access.
-- **Automated Contradiction Arbitrage:** Claims are extracted, typed, and reconciled using relative tolerance thresholds ($\Delta \ge 5\%$) weighted against an authoritative source credibility hierarchy.
-- **Exhaustive Evidence Traceability:** Every line of the compiled **Investment Memo** is cryptographically anchored to verbatim citations, exact page coordinates, and publication metadata.
+Beyond passive risk classification, the system acts as an **Actionable Legal Copilot**: for every non-compliant or hazardous clause, it automatically synthesizes a legally grounded, drop-in replacement clause (**Alternativklausel**) and compiles a court-ready audit report via **ReportLab**.
 
 ---
 
-## 🖥 Modern Analyst Dashboard
+## 🏛️ End-to-End System Architecture
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/elvijslan-stack/due-diligence-analyst/main/docs/dashboard.png" alt="Autonomous Due Diligence Analyst Dashboard" width="900" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
-  <p><em>Real-time audit dashboard with Server-Sent Events (SSE), background job history, and Human-in-the-Loop approval gates.</em></p>
-</div>
-
----
-
-## 🏛 End-to-End System Architecture
-
-The pipeline processes targets through an asynchronous, budget-controlled cognitive loop, coupling layout-aware ingestion, dense/lexical retrieval, deterministic sandbox execution, and human oversight:
+The pipeline processes contracts through an asynchronous event loop, coupling layout-aware document extraction, dense embeddings, high-performance database vector indexing, and multi-agent synthesis:
 
 ```mermaid
-flowchart TD
-    Start(["Target Ingestion: Company & Hypothesis"])
-    Parser["Layout-Aware Parser: Reports, 10-K & Tables"]
-    Planner["Planner Agent: Sub-Question Decomposition"]
-
-    Start --> Parser
-    Parser --> Planner
-
-    subgraph RAGSubsystem ["⚡ Bimodal RAG & Signal Extraction Pipeline"]
-        direction TB
-        HybridRAG["Hybrid Retrieval: pgvector + BM25"]
-        Reranker["Cross-Encoder: BAAI/bge-reranker-base"]
-        SigDetector["Signal Detector: Operational, Legal & Market Markers"]
-
-        HybridRAG --> Reranker
-        Reranker --> SigDetector
+graph TD
+    Upload([Contract Ingestion: PDF / DOCX]) --> Parser[Layout-Aware Parser<br/>pypdf & python-docx]
+    Parser --> ChunkLoop[Paragraph Segmentation & Cleaning]
+    
+    subgraph MultiAgentLoop ["⚡ Paragraph-Level Cognitive Audit Pipeline"]
+        ChunkLoop --> Embed[Sentence-Transformers<br/>all-MiniLM-L6-v2 Embeddings]
+        Embed --> OracleVector[Oracle Database 23ai<br/>Native COSINE_DISTANCE Vector Search]
+        
+        ChunkLoop --> Agent1[1. Risk Analyst Agent<br/>Liability & Exposure Detection]
+        
+        Agent1 --> Agent2[2. Oracle Legal Expert Agent<br/>Statutory Rule Grounding]
+        OracleVector -.->|Top-k Laws & Directives| Agent2
+        
+        Agent2 --> Agent3[3. Compliance Director Agent<br/>Final Verdict & Alternative Clause Generation]
     end
-
-    Planner --> HybridRAG
-
-    subgraph DiscoveryLoop ["🌐 External Discovery & Sanitization Loop"]
-        direction TB
-        QueryRewriter["Query Rewriter: Contextual Discovery Queries"]
-        WebAgent["Web & Registry Agent: BaFin, EUR-Lex & News APIs"]
-        PromptGuard["Prompt Guard: Anti-Injection & Exfiltration Sanitizer"]
-
-        QueryRewriter --> WebAgent
-        WebAgent --> PromptGuard
-    end
-
-    SigDetector -->|"Follow-up Required"| QueryRewriter
-
-    subgraph VerificationEngine ["🛡️ Deterministic Verification Engine"]
-        direction TB
-        ClaimExtractor["Claim Extractor: Tables, Numbers & Statements"]
-        Contradiction["Contradiction Verifier: Credibility & Tolerance Arbitrage"]
-        FinanceEngine["Deterministic Finance Engine: Air-Gapped Sandbox"]
-        LegalRiskLinker["Legal Risk Linker: Severity to Score Mapping"]
-
-        ClaimExtractor --> Contradiction
-        Contradiction --> FinanceEngine
-        FinanceEngine --> LegalRiskLinker
-    end
-
-    SigDetector -->|"Direct Evidence"| ClaimExtractor
-    PromptGuard -->|"Sanitized Evidence"| ClaimExtractor
-
-    subgraph SynthesisPhase ["📋 Governance & Memo Synthesis"]
-        direction TB
-        RiskScorer["Risk Matrix Synthesizer: Multi-Factor Scoring"]
-        HITLGate{"HITL Approval Gate: Human Oversight"}
-        MemoWriter["Report Writer: Sourced Investment Memo"]
-        ExportEngine["Export Engine: ReportLab PDF / Markdown / JSON"]
-        Terminate(["Audit Terminated"])
-
-        RiskScorer --> HITLGate
-        HITLGate -->|"Approved"| MemoWriter
-        HITLGate -->|"Rejected"| Terminate
-        MemoWriter --> ExportEngine
-    end
-
-    LegalRiskLinker --> RiskScorer
+    
+    Agent3 --> UI[Reflex Reactive UI<br/>Interactive Clause Remediation View]
+    Agent3 --> DBHistory[(Oracle 23ai audit_history<br/>Permanent Audit Trail)]
+    Agent3 --> PDFExport[ReportLab Engine<br/>Enterprise Compliance Audit PDF]
 ```
+---
+
+## 🧠 The 3-Tier LangGraph Agent Topology
+
+The cognitive core abandons single-prompt evaluation in favor of a specialized **LangGraph StateGraph** actor chain. Each node enforces isolated roles and explicit state contracts (`AgentState`):
+
+### 1. Risk Analyst Agent (`risk_analyst_node`)
+* **Objective:** Acts as corporate commercial counsel. Scans contract clauses strictly for financial, operational, and indemnification exposures.
+* **Scope:** Evaluates unreasonable liability caps, unilateral termination rights, ambiguous delivery acceptance criteria, and penalty mechanisms.
+* **Output Constraint:** Concise, 2-sentence empirical assessment.
+
+### 2. Legal Compliance Expert (`oracle_legal_node`)
+* **Objective:** Regulatory verification grounded in real statutory law.
+* **Context Ingestion:** Consumes the raw contract text, the findings of the Risk Analyst, and the top-3 statutory vector chunks retrieved from Oracle 23ai.
+* **Evaluation:** Correlates the factual clause against real legal standards (e.g., General Terms & Conditions control under *§ 307 BGB*, data processing mandates under *Art. 28 GDPR*, transparency duties under *Art. 13 EU AI Act*).
+
+### 3. Compliance Director (`compliance_director_node`)
+* **Objective:** Executive arbiter synthesizing the final legal risk rating and actionable remediation.
+* **Deterministic Classification:**
+  * **`RISK / RISIKO`:** Material statutory violation or critical commercial liability exposure.
+  * **`NOTICE / HINWEIS`:** Soft contractual imbalance or optimization opportunity without direct illegality.
+  * **`COMPLIANT / KONFORM`:** Fully aligned with prevailing legal doctrine.
+* **Active Remediation:** If a clause poses a risk, the agent generates a contract-grade replacement clause ready to paste into counter-negotiations.
+* **Structured Output:** Emits strictly validated JSON parsing directly into Reflex state models.
 
 ---
 
-## 🤖 Agent Topology & Cognitive State Machine
+## 🗄️ Oracle 23ai AI Vector Search Engine
 
-The orchestration layer models the audit workflow as an explicit state machine over `DDState`. Agents operate strictly within bounded operational boundaries:
+While most enterprise prototypes rely on isolated vector engines, this platform leverages **Oracle Database 23ai**, unifying operational transaction processing and high-dimensional semantic search in a single enterprise database tier:
 
-| Agent | Responsibility | Analytical Output |
+### 1. Native Vector Architecture
+* Knowledge vectors are stored directly in an Oracle `VECTOR(384, FLOAT32)` column inside the `compliance_knowledge` table on the `USERS` tablespace.
+* Embeddings are generated locally via `all-MiniLM-L6-v2` (`sentence-transformers`), guaranteeing privacy and low inference overhead.
+
+### 2. High-Performance Cosine Distance Retrieval
+* Uses thin-mode driver connectivity (`oracledb`) without requiring heavy Oracle Client runtime dependencies.
+* Queries execute native vectorized distance operations directly inside Oracle SQL:
+  ```sql
+  SELECT id, text_chunk, COSINE_DISTANCE(embedding, :query_vec) AS distance
+  FROM compliance_knowledge
+  ORDER BY distance ASC
+  FETCH FIRST :top_k ROWS ONLY;
+  ```
+
+### 3. Pre-Indexed Statutory Database
+The ingestion subsystem (`import_laws.py`) chunks, vectors, and indexes complete regulatory corpuses:
+* **GDPR / DSGVO** (General Data Protection Regulation)
+* **EU AI Act** (Artificial Intelligence Regulation)
+* **BGB** (German Civil Code — AGB-Recht / Contract Law)
+* **ISO/IEC 27001:2022** (Information Security Controls)
+
+---
+
+## 🛡️ Remediation & Alternative Clause Synthesis
+
+The system resolves the primary friction point of automated legal review: **identifying a problem without providing a solution**.
+
+When an offending clause is flagged, the engine drafts an alternative clause (*Alternativklausel*) balancing commercial interest with statutory validity:
+
+| Problematic Contract Clause | Detected Legal Exposure | Generated Alternative Clause (Drop-In) |
 | :--- | :--- | :--- |
-| **`PlannerAgent`** | Deconstructs investment hypotheses into prioritized, verifiable sub-questions. | `ResearchPlan` (Sub-queries + rationales) |
-| **`SignalDetectorAgent`** | Scans semantic chunks for stress indicators (supply chains, covenant breaches, ESG). | `Signal[]` (Categorized by severity) |
-| **`QueryRewriterAgent`** | Transforms internal signal alerts into external discovery queries for real-time verification. | `FollowUpQuery[]` (Domain-targeted) |
-| **`WebSearchAgent`** | Retrieves real-time regulatory filings and news; filtered via `PromptGuard`. | `Evidence[]` (External provenance) |
-| **`ClaimExtractorAgent`** | Isolates numerical claims and factual assertions; preserves table topologies without fragmenting. | `Claim[]` (Values, units, bounding contexts) |
-| **`ContradictionAgent`** | Detects metric discrepancies across disparate sources; applies credibility rank resolution. | `Contradiction[]` (Severity & auto-resolution) |
-| **`FinanceCalcAgent`** | Executes math through native deterministic libraries or sandboxed subprocesses. | `Calculation[]` (Formula + exact audit trail) |
-| **`RegulatoryAgent`** | Mines EUR-Lex, BaFin, and EU sanctions lists for active proceedings and obligations. | `LegalFinding[]` (Jurisdiction-bound) |
-| **`RiskScorerAgent`** | Synthesizes multidimensional risk matrices with dynamic penalty scoring. | `RiskMatrix` (Overall score + confidence index) |
-| **`ReportWriterAgent`** | Drafts comprehensive Investment Memos with strict quote attribution and gap disclosures. | `InvestmentMemo` (Cited decision baseline) |
+| *"The Contractor's liability for slight negligence is excluded across all claims without exception."* | Violation of § 309 Nr. 7 BGB & § 307 BGB (unreasonable restriction of essential contractual obligations). | *"Die Haftung für einfache Fahrlässigkeit ist ausgeschlossen, es sei denn, es handelt sich um die Verletzung wesentlicher Vertragspflichten (Kardinalpflichten) oder um Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit."* |
+| *"Customer grants Vendor perpetual, royalty-free rights to utilize all uploaded data for AI model training."* | Breach of GDPR Article 5(1)(b) (Purpose limitation) & Article 28 (Processor obligations). | *"Der Auftragnehmer darf Kundendaten ausschließlich zur Erbringung der vertragsgegenständlichen Leistungen verarbeiten. Eine Nutzung zu eigenen Trainings- oder Weiterentwicklungszwecken von KI-Modellen ist ausgeschlossen."* |
+
 
 ---
 
-## 📐 Deterministic Financial Engine & Sandbox
+## 🛠️ Enterprise Tech Stack
 
-To guarantee institutional compliance, this system eliminates language model arithmetic. Calculations are processed through two deterministic paths:
-
-### 1. Hardened Metric Registry (`src/dd_analyst/finance/metrics.py`)
-Pre-compiled, unit-tested accounting formulas executing without LLM inference:
-- **Profitability:** Gross Margin, Operating Margin, EBITDA Margin
-- **Cash Flow Dynamics:** Free Cash Flow ($FCF = OCF - |CapEx|$)
-- **Capital Structure:** Net Debt ($Total Debt - Cash$), Net Debt / EBITDA
-- **Working Capital:** Days Sales Outstanding ($DSO = \frac{A/R}{Revenue} \times 365$), Current Ratio
-
-### 2. Air-Gapped Code Interpreter & MicroVM Sandbox (`src/dd_analyst/sandbox/interpreter.py`)
-When custom metrics are required, LLM-generated code is executed inside an isolated runsc/gVisor environment:
-- **Process Isolation:** Invoked via `python -I -S -c` (isolated mode, ignoring system `PYTHONPATH`, user site-packages, and environment variables).
-- **Socket Nullification:** Network interfaces are intercepted and neutralized at the Python runtime level; any socket instantiation throws an immediate runtime exception.
-- **Resource Constraints:** Governed by strict timeouts (`DD_SANDBOX_TIMEOUT_S`) and capped buffer outputs (`DD_SANDBOX_MAX_OUTPUT_CHARS`) within ephemeral directories.
+| Component | Technology | Role & Architectural Specifications |
+| :--- | :--- | :--- |
+| **Full-Stack Application** | **Reflex 0.9+** | Pure Python reactive UI runtime, asynchronous event loop & Tailwind CSS integration |
+| **Agentic Workflow** | **LangGraph** | Stateful multi-agent graph with deterministic transitions (`StateGraph`) |
+| **Vector Database** | **Oracle Database 23ai** | Native `VECTOR(384, FLOAT32)` storage with in-database cosine distance indexing |
+| **Database Driver** | **python-oracledb** | High-performance Thin Mode driver (no Oracle Instant Client binaries required) |
+| **Dense Embeddings** | **Sentence-Transformers** | Local execution of `all-MiniLM-L6-v2` generating 384-dimensional dense vectors |
+| **LLM Inference** | **Ollama & OpenAI** | Dual-mode switch: Local `qwen2.5-coder:14b` (privacy) or Cloud `gpt-4o-mini` |
+| **Document Ingestion** | **PyPDF & python-docx** | Layout-mode PDF text reconstruction and paragraph-level segmentation |
+| **Enterprise PDF Export**| **ReportLab 4.x** | Custom corporate-palette layout, automated disclaimers, and audit matrix styling |
 
 ---
 
-## 📡 Stateless Distributed Architecture
-
-Engineered for horizontal scalability across multi-replica Kubernetes clusters:
+## 📂 Repository Topology
 
 ```text
- Client (Browser)
-       │
-       ▼ (HTTP POST /analyze)
- [FastAPI Pod A] ──► Pushes Job to Queue / Worker Pool
-                           │
-                           ▼
-                 [LangGraph Analysis Runner]
-                           │
-                           ▼ (Emits ProgressEvent)
-                 [Redis Pub/Sub Channel: dd:jobs:{job_id}]
-                           │
-       ┌───────────────────┴───────────────────┐
-       ▼                                       ▼
- [FastAPI Pod A]                         [FastAPI Pod B]
-       │ (SSE Stream)                          │ (SSE Stream)
-       ▼                                       ▼
- Client Session A                        Client Session B
+compliance_auditor/
+├── compliance_auditor/           # Core Application Package
+│   ├── __init__.py
+│   ├── compliance_auditor.py     # Reflex UI entry point, reactive State & async coordinator
+│   ├── ai_engine.py              # LangGraph multi-agent pipeline (Risk, Legal, Director)
+│   ├── oracle_db.py              # Oracle 23ai thin-mode vector retrieval & audit logging
+│   ├── file_parser.py            # Layout-aware PDF and DOCX clause segmentation parser
+│   └── pdf_generator.py          # Corporate ReportLab PDF generator with legal disclaimer
+│
+├── compliance_source_pdfs/       # Statutory Knowledge Base (GDPR, EU AI Act, BGB, ISO 27001)
+├── assets/                       # Static assets, branding logo & downloadable generated PDFs
+├── import_laws.py                # Pre-indexing batch pipeline: PDF extraction → 384d vector → Oracle 23ai
+├── rxconfig.py                   # Reflex project configuration (Tailwind & Sitemap plugins)
+├── requirements.txt              # Production dependency lockfile
+└── AGENTS.md                     # Reflex agent development skill contracts & system rules
 ```
 
-- **Stateless Web-Tier:** Eliminates sticky session dependencies. Any cluster pod can serve Server-Sent Events (SSE) while another pod executes the analysis loop.
-- **High-Throughput Concurrency:** Redis Pub/Sub acts as an asynchronous event bus for distributed job tracking, state hydration, and multi-tenant rate limiting.
+---
+
+## ⚡ Quickstart & Deployment
+
+### Prerequisites
+* **Python 3.11+**
+* **Oracle Database 23ai** (e.g., Oracle 23ai Free running locally via Docker or OCI instance)
+* **Ollama** running locally with `qwen2.5-coder:14b` *(or an active `OPENAI_API_KEY`)*
 
 ---
 
-## 🔍 Bimodal RAG & Reciprocal Rank Fusion
-
-The ingestion and retrieval subsystem (`src/dd_analyst/rag/`) bridges high-density vector representations with exact lexical keyword matching:
-
-```text
-User Query
-    │
-    ├──► Dense Embedding ──────► pgvector Store (Cosine Distance, IVFFlat / HNSW)
-    │                               │
-    └──► Lexical Tokenizer ────► Native Okapi BM25 Index (IDF Term Saturation)
-                                    │
-                                    ▼
-                         Weighted RRF Fusion:
-                       Score = Σ [ w_i / (k + rank_i) ]
-                                    │
-                                    ▼
-                     Cross-Encoder Reranking
-                 (BAAI/bge-reranker-base + Sigmoid Normalization)
-```
-
-1. **pgvector Storage:** Chunks are vectorized using Hashing (zero-dependency offline mode), Ollama (`nomic-embed-text`), or OpenAI embeddings into PostgreSQL.
-2. **Native Okapi BM25:** Implemented without external binary dependencies (`SimpleBM25`), providing exact matching on German/English accounting terminology.
-3. **Reciprocal Rank Fusion (RRF):** Fuses ranking distributions with configurable weights (`DD_HYBRID_VECTOR_WEIGHT=0.6`, `DD_HYBRID_BM25_WEIGHT=0.4`, $k=60$).
-4. **Cross-Encoder Reranker:** Top candidates pass through a secondary neural ranker (`bge-reranker-base`) with dynamic logit-to-sigmoid transformation and lexical fallback.
-
----
-
-## 🛡️ Defense-in-Depth & Security Controls
-
-Operating on untrusted external news feeds introduces prompt injection and data exfiltration vectors. The analyst enforces a multi-tier defense architecture:
-
-- **PromptGuard Ingestion Filter (`security/prompt_guard.py`):** Automatically neutralizes adversarial control codes, strips non-printable Unicode ranges (such as `U+E0000–U+E007F`), and redacts prompt hijack attempts (`ignore previous instructions`, `system:`, exfiltration probes via `curl/wget`).
-- **Granular Token & Budget Trackers (`cost_limits.py`):** Protects compute resources by terminating jobs exceeding token ceilings, web search allowances, or recursion iteration boundaries.
-- **Audit Trails:** Every state transition, authentication event, HITL decision, and calculation is recorded in append-only JSONL files or dedicated PostgreSQL audit tables (`dd_audit_events`).
-
----
-
-## 🚀 Quickstart & Production Setup
-
-### Installation
+### 1. Clone & Install Dependencies
 
 ```bash
-# Clone the repository
-git clone https://github.com/elvijslan-stack/due-diligence-analyst.git
-cd due-diligence-analyst
+# Clone repository
+git clone https://github.com/your-username/b2b-compliance-auditor.git
+cd b2b-compliance-auditor
 
-# Initialize virtual environment
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
+# Create and activate Python virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Install all enterprise dependencies
-pip install -e ".[all]"
-
-# Configure runtime environment
-cp .env.example .env
+# Install application dependencies
+pip install -r requirements.txt
+pip install oracledb sentence-transformers pypdf python-docx reportlab langgraph langchain-openai
 ```
-
-### CLI Execution
-
-Execute an end-to-end audit directly against local corporate filings:
-
-```bash
-# Analyze a target company against a local corpus
-dd-analyst analyze \
-  --company "Acme Corp" \
-  --corpus ./corpus/acme_2024 \
-  --question "Evaluate liquidity, Asian supply chain dependencies, and pending antitrust risks."
-
-# Output audit findings directly to structured JSON
-dd-analyst analyze --company "Acme Corp" --corpus ./corpus --json
-```
-
-### API & Modern WebUI
-
-Launch the asynchronous FastAPI backend with embedded Server-Sent Events (SSE) and interactive browser UI:
-
-```bash
-dd-analyst serve --host 0.0.0.0 --port 8000
-```
-- **Web UI:** Navigate to `http://localhost:8000/`
-- **Swagger Documentation:** Available at `http://localhost:8000/docs`
-- **Prometheus Metrics:** Scraped at `http://localhost:8000/prometheus`
 
 ---
 
-## 🧑‍💻 Engineering & Systems Architecture
+### 2. Configure Oracle Database 23ai
 
-Architected by **Elvijs Landmans ([landmansIT](https://github.com/elvijslan-stack))**.
+Ensure your Oracle 23ai instance is accessible (Default service: `localhost:1521/FREEPDB1`). Execute the initial schema setup:
 
-- **Neuro-Symbolic Due Diligence:** Enforcing a rigorous separation between probabilistic LLM reasoning (hypothesis generation, document summarization) and deterministic symbolic compute (financial metric formulas, discrepancy arbitration).
-- **Cyclic State Graph with Budgetary Gating:** Encapsulating execution in LangGraph with persistent memory checkpointing, bounded loops, and strict cost limits to eliminate infinite recursion in high-latency discovery workflows.
-- **Zero-Trust MicroVM Isolation:** Nullifying host-kernel exploits by running unverified code in air-gapped gVisor/subprocess sandboxes stripped of networking privileges, file paths, and environment access.
-- **Stateless Cloud-Native Scale:** Eliminating single-point-of-failure bottlenecks via a distributed Redis Pub/Sub event bus, decoupling the compute-heavy agent runners from the SSE streaming web tier.
-- **Authoritative Provenance Graphs:** Enforcing strict citation verification where every claim is validated against document IDs, page offsets, and publication dates—retaining an auditable link between the final investment memo and source filings.
+```sql
+-- Connect as SYSTEM or privileged database user
+CREATE SEQUENCE compliance_knowledge_seq START WITH 1 INCREMENT BY 1 NOCACHE;
+CREATE SEQUENCE audit_history_seq        START WITH 1 INCREMENT BY 1 NOCACHE;
+
+-- Create Vector Knowledge Table
+CREATE TABLE compliance_knowledge (
+    id          VARCHAR2(100) DEFAULT SYS_GUID() PRIMARY KEY,
+    source_file VARCHAR2(255),
+    chunk_index NUMBER,
+    chunk_text  CLOB,
+    embedding   VECTOR(384, FLOAT32)
+) TABLESPACE USERS;
+
+-- Create Permanent Audit Ledger
+CREATE TABLE audit_history (
+    id              NUMBER DEFAULT audit_history_seq.NEXTVAL PRIMARY KEY,
+    timestamp       TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL,
+    document_name   VARCHAR2(512) NOT NULL,
+    paragraph_text  CLOB NOT NULL,
+    risk_level      VARCHAR2(50) NOT NULL,
+    recommendations CLOB
+);
+```
 
 ---
 
-## ⚖️ Legal & Financial Disclaimer
+### 3. Ingest Statutory Regulatory Documents
 
-> **CRITICAL NOTICE:** This platform is an automated decision-support research aggregator designed for corporate finance and legal analysts. **It does NOT offer financial, investment, accounting, or legal advice.** All synthesized investment memos, risk matrices, and calculated financial ratios must be independently reviewed and verified by qualified professionals prior to capital allocation or contractual commitment.
+Place your target regulatory guidelines (e.g., GDPR, EU AI Act, BGB) as PDFs into `compliance_source_pdfs/` and run the vector ingestion pipeline:
 
+```bash
+# Embeds and uploads all legal corpora into Oracle 23ai Vector Store
+python import_laws.py
+```
+> Outputs chunk count and vector verification confirmations directly to stdout.
+
+---
+
+### 4. Launch the Reflex Full-Stack Web Application
+
+```bash
+# Initialize Reflex runtime environment
+reflex init
+
+# Start local development server (Frontend + Backend)
+reflex run
+```
+> Access the dark-mode interactive auditing suite at `http://localhost:3000`.
+
+---
+
+## 📄 Corporate Audit PDF Generation (ReportLab)
+
+For board governance and legal defense documentation, `pdf_generator.py` compiles audit sessions into archival PDF records:
+
+* **Executive Risk Distribution:** Automated frequency breakdown across all identified liability tiers (`Risk`, `Notice`, `Compliant`).
+* **Statutory Reference Traceability:** Each flagged paragraph explicitly cross-references the matching legal paragraph (e.g., *§ 307 BGB*, *GDPR Art. 28*).
+* **Remediation Callouts:** Highlights alternative clause recommendations in distinct corporate container panels for direct contract counter-drafting.
+* **Legal Disclaimer Banner:** Enforces automated legal disclaimers on every page template to comply with professional AI liability standards.
+
+---
+
+## 👨‍💻 Engineering & Systems Architecture
+
+Architected by **Elvijs Landmans** ([landmansIT](https://landmansit.de)).
+
+* **Enterprise Database Convergence:** Harnessing native vector operations within battle-tested relational engines (**Oracle 23ai**) rather than maintaining fragmented database architectures.
+* **Deterministic Role Separation:** Enforcing strict agent boundaries via **LangGraph** to eliminate conversational drift in high-liability domains.
+* **Prescriptive AI (Beyond Classification):** Transforming AI from a passive warning tool into an active legal draftsman via synthesized alternative clauses.
+
+---
+
+## 📄 License
+
+Proprietary Software. All Rights Reserved. Developed for corporate legal departments, procurement hubs, and enterprise governance workflows.
